@@ -1,4 +1,7 @@
-let latestLocation = { latitude: null, longitude: null, timestamp: null };
+const fs = require("fs");
+const path = require("path");
+
+const filePath = path.join(__dirname, "location.json");
 
 module.exports = (req, res) => {
     const { latitude, longitude } = req.body;
@@ -7,10 +10,15 @@ module.exports = (req, res) => {
         return res.status(400).json({ error: "Latitude and longitude are required!" });
     }
 
-    // Store location data
-    latestLocation = { latitude, longitude, timestamp: new Date().toISOString() };
+    const locationData = {
+        latitude,
+        longitude,
+        timestamp: new Date().toISOString(),
+    };
 
-    console.log("Updated location:", latestLocation);
+    // Write to a file
+    fs.writeFileSync(filePath, JSON.stringify(locationData, null, 2));
 
-    res.status(200).json({ message: "Location received", latestLocation });
+    console.log("Location saved:", locationData);
+    res.status(200).json({ message: "Location received", locationData });
 };

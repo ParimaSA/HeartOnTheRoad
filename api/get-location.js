@@ -1,11 +1,15 @@
-let latestLocation = { latitude: null, longitude: null, timestamp: null };
+const fs = require("fs");
+const path = require("path");
+
+const filePath = path.join(__dirname, "location.json");
 
 module.exports = (req, res) => {
-    if (!latestLocation.latitude || !latestLocation.longitude) {
+    if (!fs.existsSync(filePath)) {
         return res.status(404).json({ error: "No location available yet" });
     }
 
-    console.log("Sending the latest location:", latestLocation);
+    const locationData = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
-    res.status(200).json(latestLocation);
+    console.log("Sending latest location:", locationData);
+    res.status(200).json(locationData);
 };
