@@ -25,10 +25,15 @@
                 longitude: longitude
             };
 
+            let username = process.env.NODE_RED_USERNAME; // Replace with your Node-RED username
+            let password = process.env.NODE_RED_PASSWORD; // Replace with your Node-RED password
+            let credentials = btoa(username + ":" + password);
+
             fetch("https://iot.cpe.ku.ac.th/red/b6610545367/location", {
-                method: "POST", // Use POST to send JSON data
+                method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic " + credentials
                 },
                 body: JSON.stringify(locationData)
             })
