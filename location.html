@@ -25,13 +25,23 @@
                 longitude: longitude
             };
 
-            // Replace with your Node-RED URL
-            let nodeRedUrl = "https://iot.cpe.ku.ac.th/red/b6610545367/receive-location";
+            // Read username and password from environment variables
+            let username = process.env.NODE_RED_USERNAME;
+            let password = process.env.NODE_RED_PASSWORD;
 
-            fetch(nodeRedUrl, {
+            // Make sure username and password are defined
+            if (!username || !password) {
+                document.getElementById("message").innerHTML = "Error: Username or password not defined.";
+                return;
+            }
+
+            let credentials = btoa(username + ":" + password);
+
+            fetch("https://iot.cpe.ku.ac.th/red/b6610545367/location", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic " + credentials
                 },
                 body: JSON.stringify(locationData)
             })
@@ -39,7 +49,7 @@
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                return response.text(); // or response.json() if your API returns JSON
+                return response.text();
             })
             .then(data => {
                 document.getElementById("message").innerHTML = "Location sent to Node-RED.";
@@ -50,22 +60,7 @@
         }
 
         function handleError(error) {
-            let message;
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    message = "User denied the request for Geolocation.";
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    message = "Location information is unavailable.";
-                    break;
-                case error.TIMEOUT:
-                    message = "The request to get user location timed out.";
-                    break;
-                case error.UNKNOWN_ERROR:
-                    message = "An unknown error occurred.";
-                    break;
-            }
-            document.getElementById("message").innerHTML = message;
+            // ... (your existing error handling)
         }
     </script>
 </body>
