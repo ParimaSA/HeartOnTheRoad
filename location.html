@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Automatic Location Retrieval</title>
+    <title>Get and Send Location</title>
 </head>
 <body>
     <h1>Getting Your Location...</h1>
@@ -25,15 +25,13 @@
                 longitude: longitude
             };
 
-            let username = process.env.NODE_RED_USERNAME; // Replace with your Node-RED username
-            let password = process.env.NODE_RED_PASSWORD; // Replace with your Node-RED password
-            let credentials = btoa(username + ":" + password);
+            // Replace with your Node-RED URL
+            let nodeRedUrl = "https://iot.cpe.ku.ac.th/red/b6610545367/receive-location";
 
-            fetch("https://iot.cpe.ku.ac.th/red/b6610545367/location", {
+            fetch(nodeRedUrl, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Basic " + credentials
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(locationData)
             })
@@ -44,7 +42,7 @@
                 return response.text(); // or response.json() if your API returns JSON
             })
             .then(data => {
-                document.getElementById("message").innerHTML = "Location sent to API: " + data;
+                document.getElementById("message").innerHTML = "Location sent to Node-RED.";
             })
             .catch(error => {
                 document.getElementById("message").innerHTML = "Error sending location: " + error;
