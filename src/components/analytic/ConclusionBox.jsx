@@ -3,9 +3,9 @@
 export default function ConclusionBox({setTrip}) {
 
   return (
-    <div className="w-full h-full rounded-[20px] bg-[#FF96B2] flex flex-col gap-y-4 justify-center p-12 overflow-hidden">
+    <div className="overflow-y-auto w-full h-full rounded-[20px] bg-[#FF96B2] flex flex-col gap-y-4 justify-center lg:p-12 p-4">
       {/* Title at the top left */}
-      <h1 className="text-md font-extrabold md:text-2xl p-0 m-0 self-start">
+      <h1 className="text-md font-extrabold md:text-2xl pt-3 lg:p-0 lg:m-0 lg:self-start">
         Conclusion
       </h1>
       {/* You can add more content below */}

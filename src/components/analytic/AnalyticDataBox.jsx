@@ -21,10 +21,10 @@ export default function AnalyticBox({setTrip}) {
   }, [])
 
   return (
-    <div className="w-full h-full flex justify-between gap-y-12">
+    <div data-testid="analytic-box" className="w-full h-full flex justify-between gap-y-12">
 
       {/* Pink Data Box */}
-      <div className="flex justify-between w-[40vw] h-full md:min-w-[40vw] bg-[#FABCCD] rounded-[20px] p-4 md:p-8 gap-y-4">
+      <div className="overflow-y-auto flex flex-col lg:flex-row justify-between w-[40vw] h-full md:min-w-[40vw] bg-[#FABCCD] rounded-[20px] p-4 md:p-8 gap-y-4">
 
         <div className="flex flex-col">
           {/* Header Part */}
@@ -89,7 +89,7 @@ export default function AnalyticBox({setTrip}) {
         {data === undefined ? (
           <Loading/>
         ) : (
-          <BarChart label={"Average Heart Rate"} labels={["normal", "trafficjam"]} dataset={[data.heartrate.normal, data.heartrate.trafficjam]} />
+          <BarChart title={"Average Heart Rate"}label={"Heart Rate (bpm)"} labels={["normal", "trafficjam"]} dataset={[data.heartrate.normal, data.heartrate.trafficjam]} />
         )}
       </div>
 

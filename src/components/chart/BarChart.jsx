@@ -1,7 +1,7 @@
 import Chart from 'chart.js/auto';
 import { useRef, useEffect } from 'react';
 
-export default function BarChart({label, labels, dataset}) {
+export default function BarChart({title, label, labels, dataset}) {
   const canvasRef = useRef(null);
   const chartRef = useRef(null); 
 
@@ -36,7 +36,7 @@ export default function BarChart({label, labels, dataset}) {
           },
           title: {
             display: true,
-            text: 'Average Heart Rate',
+            text: title,
           },
         },
       },
@@ -50,7 +50,7 @@ export default function BarChart({label, labels, dataset}) {
   }, [label, labels, dataset]);
 
   return (
-    <div className="h-full w-full flex items-center justify-center px-8">
+    <div data-testid="bar-chart" className="h-full w-full flex items-center justify-center px-8">
       <canvas ref={canvasRef} className="w-full h-full"></canvas>
     </div>
   );

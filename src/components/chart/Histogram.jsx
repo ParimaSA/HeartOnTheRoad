@@ -96,7 +96,7 @@ export default function Histogram({ data, binSize = 5, title, xaxis, keyValue, c
   }, [data, binSize, color]);
 
   return (
-    <div className="h-full w-full">
+    <div data-testid="histogram" className="h-full w-full">
       <ReactApexChart
         options={chartData.options}
         series={chartData.series}

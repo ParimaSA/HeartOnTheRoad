@@ -13,7 +13,7 @@ import {
 
 
 export default function SelectTrip({ setTrip }) {
-  const [tripCount, setTripCount] = useState(4);
+  const [tripCount, setTripCount] = useState(29);
   const [selectedTrip, setSelectedTrip] = useState(tripCount-1);
 
   // If you're fetching from API, you can update selectedTrip once tripCount is known
@@ -33,28 +33,30 @@ export default function SelectTrip({ setTrip }) {
   
 
   return (
-    <Select
-      value={selectedTrip}
-      onValueChange={(val) => {
-          setSelectedTrip(val);
-          setTrip(val);
+    <div data-testid="trip-select">
+      <Select
+        value={selectedTrip}
+        onValueChange={(val) => {
+            setSelectedTrip(val);
+            setTrip(val);
+          }
         }
-      }
-    >
-      <SelectTrigger className="w-[140px] bg-[#FF5C5F] text-white border-[3px]">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent className="max-h-[20vh] overflow-y-auto">
-        <SelectGroup>
-          <SelectLabel>Select Trip</SelectLabel>
-          {tripCount !== null &&
-            Array.from({ length: tripCount }, (_, i) => (
-              <SelectItem key={i} value={i}>
-                Trip #{i + 1}
-              </SelectItem>
-            ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+      >
+        <SelectTrigger className="w-[140px] bg-[#FF5C5F] text-white border-[3px]">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent className="max-h-[20vh] overflow-y-auto">
+          <SelectGroup>
+            <SelectLabel>Select Trip</SelectLabel>
+            {tripCount !== null &&
+              Array.from({ length: tripCount }, (_, i) => (
+                <SelectItem key={i} value={i}>
+                  Trip #{i + 1}
+                </SelectItem>
+              ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

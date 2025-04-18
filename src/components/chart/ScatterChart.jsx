@@ -62,7 +62,7 @@ export default function ScatterPlot({ label, data }) {
   }, [label, data]);
 
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div data-testid="scatter" className="h-full w-full flex items-center justify-center">
       <canvas ref={canvasRef} className="w-full h-full"></canvas>
     </div>
   );

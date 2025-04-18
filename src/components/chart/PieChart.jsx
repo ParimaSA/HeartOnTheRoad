@@ -50,7 +50,7 @@ export default function PieChart({label, labels, dataset}) {
   }, [label, labels, dataset]);
 
   return (
-    <div className="w-full h-full">
+    <div data-testid="pie-chart" className="w-full h-full">
       <canvas ref={canvasRef}></canvas>
     </div>
   );

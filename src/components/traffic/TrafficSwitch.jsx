@@ -14,7 +14,7 @@ export function TrafficSwitch({setTraffic}) {
 
   return (
     <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-[12px]">
-      <Switch onCheckedChange={handleToggle} className="hover:cursor-pointer"/>
+      <Switch onCheckedChange={handleToggle} data-testid="traffic-select" className="hover:cursor-pointer"/>
       <Label htmlFor="airplane-mode">Traffic Jam</Label>
     </div>
   )

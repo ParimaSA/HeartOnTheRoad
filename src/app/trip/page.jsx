@@ -14,7 +14,7 @@ export default function Trip() {
   return (
     <div className="w-full h-[calc(100vh-64px)] flex flex-col">
 
-      <div className="flex flex-col h-full w-full justify-between gap-y-4 pt-12 overflow-hidden px-24 ">
+      <div className="flex flex-col h-full w-full justify-between gap-y-4 pt-12 overflow-hidden px-8 lg:px-24 ">
 
         <div className="flex justify-center items-center w-full h-[36vh]">
           <TripBox trip={tripID} setTrip={setTripID}/>

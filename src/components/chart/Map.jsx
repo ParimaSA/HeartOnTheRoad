@@ -79,7 +79,7 @@ export default function RouteMap({ routeData }) {
   if (isMapLoaded) return <Loading />
 
   return (
-    <div className="w-full h-full">
+    <div data-testid="map" className="w-full h-full">
       {routeData && routeData.length > 0 ? (
         <div ref={mapRef} style={{ height: "100%", width: "100%" }}>
           <MapContainer

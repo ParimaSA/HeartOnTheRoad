@@ -79,7 +79,7 @@ export default function LineChart({ data }) {
   }, [data]);
 
   return (
-    <div className="h-full w-auto">
+    <div data-testid="line-chart" className="h-full w-auto">
       {data && data.length > 0 ? (
         <canvas ref={canvasRef} />
       ) : (

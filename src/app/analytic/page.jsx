@@ -8,7 +8,7 @@ export default function Analytic() {
   return (
     <div className="w-full h-[calc(100vh-64px)] flex flex-col">
 
-      <div className="flex flex-col h-full w-full justify-between overflow-hidden px-20 pt-8">
+      <div className="flex flex-col h-full w-full justify-between overflow-hidden p-4 lg:px-20 lg:pt-8">
 
         <div className="flex justify-center items-center w-full h-full overflow-hidden py-4 px-4">
           <AnalyticBox/>
