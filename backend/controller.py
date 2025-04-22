@@ -118,7 +118,7 @@ class HeartOnTheRoadAnalytics:
     class Trip:
         @classmethod
         def get_heart_rate_trip(cls, trip_id):
-            if not isinstance(trip_id, (int, float)) or trip_id <= 0 or trip_id >= 29:
+            if not isinstance(trip_id, (int, float)) or trip_id < 0 or trip_id >= 29:
                 raise BadRequest("Invalid trip_id: must be a positive number.")
             with pool.connection() as conn, conn.cursor() as cs:
                 cs.execute("""
@@ -130,7 +130,7 @@ class HeartOnTheRoadAnalytics:
 
         @classmethod
         def get_location_trip(cls, trip_id):
-            if not isinstance(trip_id, (int, float)) or trip_id <= 0 or trip_id >= 29:
+            if not isinstance(trip_id, (int, float)) or trip_id < 0 or trip_id >= 29:
                 raise BadRequest("Invalid trip_id: must be a positive number.")
             with pool.connection() as conn, conn.cursor() as cs:
                 cs.execute("""
@@ -142,7 +142,7 @@ class HeartOnTheRoadAnalytics:
 
         @classmethod
         def get_trip_details(cls, trip_id):
-            if not isinstance(trip_id, (int, float)) or trip_id <= 0 or trip_id >= 29:
+            if not isinstance(trip_id, (int, float)) or trip_id < 0 or trip_id >= 29:
                 raise BadRequest("Invalid trip_id: must be a positive number.")
             with pool.connection() as conn, conn.cursor() as cs:
                 cs.execute("""
