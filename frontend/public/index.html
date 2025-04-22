@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Send Location</title>
+</head>
+<body>
+    <h3>Location Auto-Sender</h3>
+    <p id="status">Waiting for location updates...</p>
+
+    <script>
+        function sendLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const { latitude, longitude } = position.coords;
+
+                    fetch("https://heart-on-the-road.vercel.app/api/send-location", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ latitude, longitude })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Server Response:", data);
+                        document.getElementById("status").innerText = `Last sent: ${new Date().toLocaleTimeString()}`;
+                    })
+                    .catch(error => console.error("Error:", error));
+                }, error => {
+                    console.error("Error getting location:", error);
+                });
+            } else {
+                console.error("Geolocation not supported!");
+            }
+        }
+
+        // Send location every 3 minutes
+        setInterval(sendLocation, 180000); // 180000 ms = 3 min
+        sendLocation(); // Send immediately on page load
+    </script>
+</body>
+</html>
