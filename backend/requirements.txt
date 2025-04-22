@@ -5,3 +5,5 @@ connexion<3.0.0
 cryptography
 flask-testing
 werkzeug
+pytest
+flask_cors
