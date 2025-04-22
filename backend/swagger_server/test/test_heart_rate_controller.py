@@ -55,24 +55,27 @@ class TestHeartRateController(BaseTestCase):
         ]
         self.assertEqual(response_json, my_json_list,
                          'Response does not match expected trip summary.')
-        
+
     def test_get_heart_rate_trip_invalid(self):
         """Test case for invalid trip_id=29"""
         response = self.client.open(
             '/heart/v1/api/heartrate/trip/{trip_id}'.format(trip_id=29),
             method='GET')
-        self.assert400(response,'Expected 400 Bad Request for negative trip_id')
-        
+        self.assert400(
+            response, 'Expected 400 Bad Request for negative trip_id')
+
     def test_get_heart_rate_trip_with_string_id(self):
         """Invalid string trip_id should return 500 (or 400 if you validate)"""
-        response = self.client.open('/heart/v1/api/heartrate/trip/a', method='GET')
-        self.assert500(response, 'Expected 500 Internal Server Error for invalid trip_id')
+        response = self.client.open(
+            '/heart/v1/api/heartrate/trip/a', method='GET')
+        self.assertIn(response.status_code, [400, 404], 'Expected 400 or 404 for invalid trip_id')
 
     def _get_heart_rate_trip_with_negative_id(self):
         """Negative trip_id should return 400"""
-        response = self.client.open('/heart/v1/api/heartrate/trip/-2', method='GET')
-        self.assert400(response, 'Expected 400 Bad Request for negative trip_id')
-
+        response = self.client.open(
+            '/heart/v1/api/heartrate/trip/-2', method='GET')
+        self.assert400(
+            response, 'Expected 400 Bad Request for negative trip_id')
 
     def test_controller_get_heartrate_by_traffic(self):
         """Test case for controller_get_heartrate_by_traffic

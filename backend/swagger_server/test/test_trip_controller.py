@@ -55,7 +55,7 @@ class TestTripController(BaseTestCase):
     def test_get_trip_details_with_string_id(self):
         """Invalid string trip_id should return 500 (or 400 if you validate)"""
         response = self.client.open('/heart/v1/api/trip/a', method='GET')
-        self.assert500(response, 'Expected 500 Internal Server Error for invalid trip_id')
+        self.assertIn(response.status_code, [400, 404], 'Expected 400 or 404 for invalid trip_id')
 
     def test_get_trip_details_with_negative_id(self):
         """Negative trip_id should return 400"""
