@@ -38,14 +38,14 @@ This project aims to analyze the impact of traffic conditions on a driver's stre
 
 **Base URL:** `/heart/v1`
 
-
-
 ### Analytics
 
 #### GET `/api/analytic`
+
 Retrieve overall analytics data.
 
 #### GET `/api/analytic/relation`
+
 Get relation between heart rate and traffic speed by hour.
 
 ---
@@ -53,10 +53,13 @@ Get relation between heart rate and traffic speed by hour.
 ### Trip
 
 #### GET `/api/trip`
+
 Fetch the number of recorded trips.
 
 #### GET `/api/trip/{trip_id}`
+
 Get specific trip details.
+
 - **Path Parameter:** `trip_id` (number)
 
 ---
@@ -64,11 +67,15 @@ Get specific trip details.
 ### Heart Rate
 
 #### GET `/api/heartrate/trip/{trip_id}`
+
 Get timestamped heart rate data for a specific trip.
+
 - **Path Parameter:** `trip_id` (number)
 
 #### GET `/api/heartrate/traffic/{is_traffic_jam}`
+
 Get heart rate data filtered by traffic condition.
+
 - **Path Parameter:** `is_traffic_jam` (boolean)
 
 ---
@@ -76,11 +83,15 @@ Get heart rate data filtered by traffic condition.
 ### Location
 
 #### GET `/api/location/trip/{trip_id}`
+
 Get location data and speed for a specific trip.
+
 - **Path Parameter:** `trip_id` (number)
 
 #### GET `/api/speed/traffic/{is_traffic_jam}`
+
 Get current speed data filtered by traffic condition.
+
 - **Path Parameter:** `is_traffic_jam` (boolean)
 
 ---
@@ -88,7 +99,9 @@ Get current speed data filtered by traffic condition.
 ### Traffic
 
 #### GET `/api/traffic/{is_traffic_jam}`
+
 Get heart rate and traffic stats summary by condition.
+
 - **Path Parameter:** `is_traffic_jam` (boolean)
 
 ---
@@ -96,9 +109,19 @@ Get heart rate and traffic stats summary by condition.
 ### Time-Based Analysis
 
 #### GET `/api/time/{hour}`
+
 Get stats for a specific hour.
+
 - **Path Parameter:** `hour` (integer, 8–23)
 
+## Libraries and Tools
+
+- **Python**: Main programming language.
+- **Flask**: Framework for creating the backend API.
+- **Next.js**: Framework for the frontend (React-based).
+- **Node-RED**: Used for flow updates and database integration.
+- **Selenium**: Web scraping tool.
+- **Other dependencies**: See the `requirements.txt` file for additional libraries.
 
 ## Installation
 
