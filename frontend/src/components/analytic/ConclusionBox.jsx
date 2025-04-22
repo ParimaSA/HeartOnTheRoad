@@ -9,7 +9,10 @@ export default function ConclusionBox({setTrip}) {
         Conclusion
       </h1>
       {/* You can add more content below */}
-      <p className="text-sm">The analysis shows that traffic congestion is related to higher driver stress. When traffic slows down, drivers’ heart rates tend to increase, suggesting more stress. This pattern shows that heavy traffic can directly affect drivers’ mental and physical well-being. Recognizing this link can help create ways to reduce stress during busy traffic times.</p>
+      <p className="text-md">The analysis shows that we cannot find a meaningful insight regarding how traffic congestion impacts the driver's heart rate, as the average heart rates during traffic jams and normal traffic are almost the same.
+However, we found that speed has an impact on the driver's heart rate.
+The correlation between speed and heart rate is 0.427, indicating a moderate positive relationship.
+Additionally, the line graph shows that speed and heart rate follow a similar pattern throughout the day, supporting this relationship.</p>
 
     </div>
   );
