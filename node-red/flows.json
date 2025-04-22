@@ -1,0 +1,194 @@
+[
+    {
+        "id": "5fd0f44c8252b000",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8e73a7fc7f409619",
+        "type": "mqtt in",
+        "z": "5fd0f44c8252b000",
+        "name": "",
+        "topic": "b6610545367/location",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "77c9e28049ac9d33",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 160,
+        "wires": [
+            [
+                "83ee7f8a844bc11a"
+            ]
+        ]
+    },
+    {
+        "id": "4c245dba851467fd",
+        "type": "mysql",
+        "z": "5fd0f44c8252b000",
+        "mydb": "43db3b2314f5fe05",
+        "name": "DB",
+        "x": 1170,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e32f33b487b70732",
+        "type": "http request",
+        "z": "5fd0f44c8252b000",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{{url}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 570,
+        "y": 160,
+        "wires": [
+            [
+                "5d2c5964838d2f3d"
+            ]
+        ]
+    },
+    {
+        "id": "83ee7f8a844bc11a",
+        "type": "function",
+        "z": "5fd0f44c8252b000",
+        "name": "TrafficApiUrl",
+        "func": "msg.url = `https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=${msg.payload.lat}%2C${msg.payload.lon}&unit=KMPH&openLr=false&key=6sucdKRGLecauLQHxlYR5Vb4Fj1bc4F2`;\nmsg.lat = msg.payload.lat;\nmsg.lon = msg.payload.lon;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 80,
+        "wires": [
+            [
+                "e32f33b487b70732"
+            ]
+        ]
+    },
+    {
+        "id": "5d2c5964838d2f3d",
+        "type": "change",
+        "z": "5fd0f44c8252b000",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "api",
+                "pt": "msg",
+                "to": "payload.flowSegmentData",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 240,
+        "wires": [
+            [
+                "760eb0a06ea07bc5"
+            ]
+        ]
+    },
+    {
+        "id": "7a84c74f92be90d3",
+        "type": "template",
+        "z": "5fd0f44c8252b000",
+        "name": "",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO Location (latitude, longitude, currentSpeed, freeFlowSpeed, currentTravelTime, freeFlowTravelTime, confidence, frc)\nVALUES (\n    {{payload.latitude}},\n    {{payload.longitude}},\n    {{payload.currentSpeed}},\n    {{payload.freeFlowSpeed}},\n    {{payload.currentTravelTime}},\n    {{payload.freeFlowTravelTime}},\n    {{payload.confidence}},\n    \"{{payload.frc}}\"\n);\n",
+        "output": "str",
+        "x": 1020,
+        "y": 160,
+        "wires": [
+            [
+                "4c245dba851467fd"
+            ]
+        ]
+    },
+    {
+        "id": "760eb0a06ea07bc5",
+        "type": "function",
+        "z": "5fd0f44c8252b000",
+        "name": "Edit payload",
+        "func": "// Merge data from Inject node (latitude, longitude)\nlet latitude = msg.lat;\nlet longitude = msg.lon;\n\n\n// Merge data from Change node (other properties)\nlet currentSpeed = msg.api.currentSpeed;\nlet freeFlowSpeed = msg.api.freeFlowSpeed;\nlet currentTravelTime = msg.api.currentTravelTime;\nlet freeFlowTravelTime = msg.api.freeFlowTravelTime;\nlet confidence = msg.api.confidence;\nlet frc = msg.api.frc;\n\n// Construct a new payload object\nmsg.payload = {\n    latitude: latitude,\n    longitude: longitude,\n    currentSpeed: currentSpeed,\n    freeFlowSpeed: freeFlowSpeed,\n    currentTravelTime: currentTravelTime,\n    freeFlowTravelTime: freeFlowTravelTime,\n    confidence: confidence,\n    frc: frc\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 160,
+        "wires": [
+            [
+                "7a84c74f92be90d3"
+            ]
+        ]
+    },
+    {
+        "id": "77c9e28049ac9d33",
+        "type": "mqtt-broker",
+        "name": "CPE Server",
+        "broker": "iot.cpe.ku.ac.th",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "43db3b2314f5fe05",
+        "type": "MySQLdatabase",
+        "name": "CPE",
+        "host": "iot.cpe.ku.ac.th",
+        "port": "3306",
+        "db": "b6610545367",
+        "tz": "+07:00",
+        "charset": "UTF8"
+    }
+]
